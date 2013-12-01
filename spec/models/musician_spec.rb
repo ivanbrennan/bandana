@@ -1,37 +1,48 @@
 require 'spec_helper'
 
 describe Musician do
-  let(:musician) { Musician.new }
+  let(:axel) { Factorygirl.build(:axel) }
 
   describe "attributes" do
 
     it "has a name" do
-      musician.name = "Axel"
-      expect(musician.name).to eq("Axel")
+      axel.name
     end
 
     it "has instruments" do
-      musician.instruments.build(:name => "guitar")
-      musician.instruments.build(:name => "drums")
-      expect(musician.instruments.count).to eq(2)
+      sax = Factorygirl.build(:sax)
+      drums = Factorygirl.build(:drums)
+      axel.instruments = [sax, drums]
     end
 
     it "has bands" do
-      musician.bands.build(:name => "Asthmatica")
-      musician.bands.build(:name => "Guns 'n Roses")
-      expect(musician.bands.count).to eq(2)
+      asthmatica = Factorygirl.build(:asthmatica)
+      bloat = Factorygirl.build(:bloat)
+      axel.bands = [asthmatica, bloat]
     end
 
     it "has genres" do
-      musician.genres.build(:name => "Rock")
-      musician.genres.build(:name => "Grime")
-      expect(musician.genres.count).to eq(2)
+      rock = Factorygirl.build(:rock)
+      punk = Factorygirl.build(:punk)
+      axel.genres = [rock, punk]
     end
 
-    it "has demos" do
-      musician.genres.build(:name => "Rock")
-      musician.genres.build(:name => "Grime")
-      expect(musician.genres.count).to eq(2)
+    it "has demos from all associated bands" do
+      asthmatica = Factorygirl.build(:asthmatica)
+      bloat = Factorygirl.build(:bloat)
+      axel.bands = [asthmatica, bloat]
+
+      inhaler = Factorygirl.build(:inhaler)
+      asthmatica.demos = [inhaler]
+      protons = Factorygirl.build(:protons)
+      bloat.demos = [protons]
+
+      expect(axel.demos.count).to eq(2)
+    end
+
+    it "has a city" do
+      queens = FactoryGirl.build(:queens)
+      axel.city = queens
     end
 
   end

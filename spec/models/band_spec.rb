@@ -1,31 +1,42 @@
 require 'spec_helper'
 
 describe Band do
-  let(:band) { Band.new }
+  let(:asthmatica) { Factorygirl.create(:band) }
 
   describe "attributes" do
 
     it "has a name" do
-      band.name = "Asthmatica"
-      expect(it "has a name")
+      expect(asthmatica.name).to_not be_nil
+    end
+
+    it "has a city" do
+      queens = FactoryGirl.create(:queens)
+      asthmatica.city = queens
+      expect(asthmatica.city).to_not be_nil
     end
 
     it "has musicians" do
-      band.musicians.build(:name => "Slash")
-      band.musicians.build(:name => "Flea")
-      expect(band.generes.count).to eq(2)
+      axel = Factorygirl.build(:axel)
+      flea = Factorygirl.build(:flea)
+      asthmatica.musicians = [axel, flea]
     end
 
     it "has genres" do
-      band.genres.build(:name => "Rock")
-      band.genres.build(:name => "Punk")
-      expect(band.genres.count).to eq(2)
+      rock = Factorygirl.build(:rock)
+      punk = Factorygirl.build(:punk)
+      asthmatica.genres = [rock, punk]
+    end
+
+    it "has instruments" do
+      sax = Factorygirl.build(:sax)
+      drums = Factorygirl.build(:drums)
+      asthmatica.instruments = [sax, drums]
     end
 
     it "has demos" do
-      band.demos.build(:name => "Inhaler")
-      band.demos.build(:name => "Swim")
-      expect(band.genres.count).to eq(2)
+      inhaler = Factorygirl.build(:inhaler)
+      protons = Factorygirl.build(:protons)
+      asthmatica.demos = [inhaler, protons]
     end
 
   end
