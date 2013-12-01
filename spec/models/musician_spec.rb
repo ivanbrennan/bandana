@@ -1,49 +1,51 @@
 require 'spec_helper'
 
 describe Musician do
-  let(:axel) { Factorygirl.build(:axel) }
+  let(:axel) { FactoryGirl.build(:axel) }
 
   describe "attributes" do
-
     it "has a name" do
-      axel.name
+      expect(axel.name).to_not be_nil
     end
+  end
 
-    it "has instruments" do
-      sax = Factorygirl.build(:sax)
-      drums = Factorygirl.build(:drums)
-      axel.instruments = [sax, drums]
-    end
-
+  describe "associations" do
     it "has bands" do
-      asthmatica = Factorygirl.build(:asthmatica)
-      bloat = Factorygirl.build(:bloat)
-      axel.bands = [asthmatica, bloat]
+      bloat = FactoryGirl.build(:bloat)
+      axel.band_musicians.build(:band => bloat)
+      #axel.save
+      expect(axel.bands).to include(bloat)
+    end
+
+    it "belongs to a city" do
+      queens = FactoryGirl.build(:queens)
+      axel.city = queens
+      expect(axel.city).to_not be_nil
     end
 
     it "has genres" do
-      rock = Factorygirl.build(:rock)
-      punk = Factorygirl.build(:punk)
-      axel.genres = [rock, punk]
+      rock = FactoryGirl.build(:rock)
+      axel.musician_genres.build(:genre => rock)
+      #axel.save
+      expect(axel.genres).to include(rock)
+    end
+
+    it "has instruments" do
+      sax = FactoryGirl.build(:sax)
+      axel.musician_instruments.build(:instrument => sax)
+      #axel.save
+      expect(axel.instruments).to include(sax)
     end
 
     it "has demos from all associated bands" do
-      asthmatica = Factorygirl.build(:asthmatica)
-      bloat = Factorygirl.build(:bloat)
-      axel.bands = [asthmatica, bloat]
-
-      inhaler = Factorygirl.build(:inhaler)
-      asthmatica.demos = [inhaler]
-      protons = Factorygirl.build(:protons)
-      bloat.demos = [protons]
-
-      expect(axel.demos.count).to eq(2)
+      inhaler = FactoryGirl.build(:inhaler)
+      asthmatica = FactoryGirl.build(:asthmatica)
+      asthmatica.demos.build(inhaler)
+      asthmatica.band_musicians.build(:musician => axel)
+      #asthmatica.save
+      expect(axel.demos).to include(inhaler)
+      # this will involve a custom instance method for the Musician class
     end
-
-    it "has a city" do
-      queens = FactoryGirl.build(:queens)
-      axel.city = queens
-    end
-
   end
+
 end

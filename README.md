@@ -6,7 +6,7 @@
 - has instruments   through band_instruments
 - has musicians     through band_musicians
 
-##City
+##Cities
 - has bands
 - has musicians
 
@@ -18,7 +18,7 @@
 - has bands         through band_genres
 - has demos         through demo_genres
 
-##Instrument
+##Instruments
 - has bands         through band_instruments
 - has musicians     through musician_instruments
 

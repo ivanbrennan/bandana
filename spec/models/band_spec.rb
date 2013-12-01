@@ -1,43 +1,49 @@
 require 'spec_helper'
 
 describe Band do
-  let(:asthmatica) { Factorygirl.create(:band) }
+  let(:asthmatica) { FactoryGirl.build(:band) }
 
   describe "attributes" do
-
     it "has a name" do
       expect(asthmatica.name).to_not be_nil
     end
+  end
 
-    it "has a city" do
-      queens = FactoryGirl.create(:queens)
+  describe "associations" do
+    it "belongs to a city" do
+      queens = FactoryGirl.build(:queens)
       asthmatica.city = queens
+      #asthmatica.save
       expect(asthmatica.city).to_not be_nil
     end
 
-    it "has musicians" do
-      axel = Factorygirl.build(:axel)
-      flea = Factorygirl.build(:flea)
-      asthmatica.musicians = [axel, flea]
+    it "has demos" do
+      inhaler = FactoryGirl.build(:inhaler)
+      asthmatica.demos.build(inhaler)
+      #asthmatica.save
+      expect(asthmatica.demos).to include(inhaler)
     end
 
     it "has genres" do
-      rock = Factorygirl.build(:rock)
-      punk = Factorygirl.build(:punk)
-      asthmatica.genres = [rock, punk]
+      rock = FactoryGirl.build(:rock)
+      asthmatica.band_genres.build(:genre => rock)
+      #asthmatica.save
+      expect(asthmatica.genres).to include(rock)
     end
 
     it "has instruments" do
-      sax = Factorygirl.build(:sax)
-      drums = Factorygirl.build(:drums)
-      asthmatica.instruments = [sax, drums]
+      sax = FactoryGirl.build(:sax)
+      asthmatica.band_instruments.build(:instrument => :sax)
+      #asthmatica.save
+      expect(asthmatica.instruments).to include(sax)
     end
 
-    it "has demos" do
-      inhaler = Factorygirl.build(:inhaler)
-      protons = Factorygirl.build(:protons)
-      asthmatica.demos = [inhaler, protons]
+    it "has musicians" do
+      axel = FactoryGirl.build(:axel)
+      asthmatica.band_musicians.build(:musician => :axel)
+      #asthmatica.save
+      expect(asthmatica.musicians).to include(axel)
     end
-
   end
+
 end

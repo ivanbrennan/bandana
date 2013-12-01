@@ -1,33 +1,29 @@
 require 'spec_helper'
 
 describe Demo do
-  let(:inhaler) { Factorygirl.build(:inhaler) }
+  let(:inhaler) { FactoryGirl.build(:inhaler) }
 
   describe "attributes" do
-
     it "has a name" do
-      inhaler.name
+      expect(inhaler.name).to_not be_nil
     end
+  end
 
+  describe "associations" do
     it "belongs to a band" do
-      bloat = Factorygirl.build(:bloat)
-      inhaler.band = bloat
-    end
-
-    it "has musicians" do
-      axel = Factorygirl.build(:axel)
-      flea = Factorygirl.build(:flea)
-      asthmatica = FactoryGirl.build(:asthmatica)
-      asthmatica.musicians = [axel, flea]
-      inhaler.band = asthmatica
-      expect(inhaler.musicians).to eq([axel, flea])
+      bloat = FactoryGirl.build(:bloat)
+      #bloat.save
+      inhaler.build_band(bloat)
+      #inhaler.save
+      expect(bloat.demos).to include(inhaler)
     end
 
     it "has genres" do
-      rock = Factorygirl.build(:rock)
-      punk = Factorygirl.build(:punk)
-      inhaler.genres = [rock, punk]
+      rock = FactoryGirl.build(:rock)
+      inhaler.demo_genres.build(:genre => rock)
+      #inhaler.save
+      expect(inhaler.genres).to include(rock)
     end
-
   end
+
 end

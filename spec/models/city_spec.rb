@@ -4,22 +4,25 @@ describe City do
   let(:brooklyn) { FactoryGirl.build(:brooklyn) }
 
   describe "attributes" do
-
     it "has a name" do
-      brooklyn.name
+      expect(brooklyn.name).to_not be_nil
     end
+  end
 
+  describe "associations" do
     it "has bands" do
-      asthmatica = FactoryGirl.build(:asthmatica)
       bloat = FactoryGirl.build(:bloat)
-      brooklyn.bands = [asthmatica, bloat]
+      brooklyn.bands.build(bloat)
+      #brooklyn.save
+      expect(brooklyn.bands).to include(bloat)
     end
 
     it "has musicians" do
-      axel = Factorygirl.build(:axel)
-      flea = Factorygirl.build(:flea)
-      brooklyn.musicians = [axel, flea]
+      flea = FactoryGirl.build(:flea)
+      brooklyn.musicians.build(flea)
+      #brooklyn.save
+      expect(brooklyn.musicians).to include(flea)
     end
-
   end
+
 end
