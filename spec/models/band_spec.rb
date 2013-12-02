@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Band do
-  let(:asthmatica) { FactoryGirl.build(:band) }
+  let(:asthmatica) { FactoryGirl.build(:asthmatica) }
 
   describe "attributes" do
     it "has a name" do
@@ -19,7 +19,7 @@ describe Band do
 
     it "has demos" do
       inhaler = FactoryGirl.build(:inhaler)
-      asthmatica.demos.build(inhaler)
+      asthmatica.demos << inhaler
       #asthmatica.save
       expect(asthmatica.demos).to include(inhaler)
     end
@@ -33,14 +33,14 @@ describe Band do
 
     it "has instruments" do
       sax = FactoryGirl.build(:sax)
-      asthmatica.band_instruments.build(:instrument => :sax)
+      asthmatica.band_instruments.build(:instrument => sax)
       #asthmatica.save
       expect(asthmatica.instruments).to include(sax)
     end
 
     it "has musicians" do
       axel = FactoryGirl.build(:axel)
-      asthmatica.band_musicians.build(:musician => :axel)
+      asthmatica.band_musicians.build(:musician => axel)
       #asthmatica.save
       expect(asthmatica.musicians).to include(axel)
     end

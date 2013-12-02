@@ -12,7 +12,7 @@ describe Instrument do
   describe "associations" do
 
     it "has bands" do
-      asthmatica = FactoryGirl.build(:asmthmatica)
+      asthmatica = FactoryGirl.build(:asthmatica)
       sax.band_instruments.build(:band => asthmatica)
       #sax.save
       expect(sax.bands).to include(asthmatica)
@@ -21,7 +21,7 @@ describe Instrument do
     it "has musicians" do
       axel = FactoryGirl.create(:axel)
       sax.musician_instruments.build(:musician => axel)
-      #sax.save
+      sax.save
       expect(sax.musicians).to include(axel)
     end
   end

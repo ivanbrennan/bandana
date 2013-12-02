@@ -12,9 +12,8 @@ describe Demo do
   describe "associations" do
     it "belongs to a band" do
       bloat = FactoryGirl.build(:bloat)
-      #bloat.save
-      inhaler.build_band(bloat)
-      #inhaler.save
+      inhaler.band = bloat
+      inhaler.save
       expect(bloat.demos).to include(inhaler)
     end
 

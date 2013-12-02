@@ -12,7 +12,7 @@ describe Genre do
   describe "associations" do
     it "has bands" do
       bloat = FactoryGirl.build(:bloat)
-      rock.band_genres.build(:band_id => 1)
+      rock.band_genres.build(:band => bloat)
       #rock.save
       expect(rock.bands).to include(bloat)
     end

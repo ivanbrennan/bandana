@@ -12,14 +12,14 @@ describe City do
   describe "associations" do
     it "has bands" do
       bloat = FactoryGirl.build(:bloat)
-      brooklyn.bands.build(bloat)
+      brooklyn.bands << bloat
       #brooklyn.save
       expect(brooklyn.bands).to include(bloat)
     end
 
     it "has musicians" do
       flea = FactoryGirl.build(:flea)
-      brooklyn.musicians.build(flea)
+      brooklyn.musicians << flea
       #brooklyn.save
       expect(brooklyn.musicians).to include(flea)
     end

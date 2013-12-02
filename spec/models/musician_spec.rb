@@ -40,11 +40,10 @@ describe Musician do
     it "has demos from all associated bands" do
       inhaler = FactoryGirl.build(:inhaler)
       asthmatica = FactoryGirl.build(:asthmatica)
-      asthmatica.demos.build(inhaler)
+      asthmatica.demos << inhaler
       asthmatica.band_musicians.build(:musician => axel)
-      #asthmatica.save
+      asthmatica.save
       expect(axel.demos).to include(inhaler)
-      # this will involve a custom instance method for the Musician class
     end
   end
 
