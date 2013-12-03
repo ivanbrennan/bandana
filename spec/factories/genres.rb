@@ -1,9 +1,5 @@
 FactoryGirl.define do
-  factory :rock, class: Genre do
-    name "Rock"
-  end
-
-  factory :punk, class: Genre do
-    name "Punk"
+  factory :genre do |f|
+    f.name { Faker::Name.last_name }
   end
 end

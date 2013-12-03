@@ -1,9 +1,5 @@
 FactoryGirl.define do
-  factory :sax, class: Instrument do
-    name "saxophone"
-  end
-
-  factory :drums, class: Instrument do
-    name "drums"
+  factory :instrument do |f|
+    f.name { Faker::Name.last_name }
   end
 end

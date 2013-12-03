@@ -1,4 +1,6 @@
 class City < ActiveRecord::Base
-  has_many :bands
-  has_many :musicians
+  validates :name, presence: true
+
+  has_many  :bands
+  has_many  :musicians
 end

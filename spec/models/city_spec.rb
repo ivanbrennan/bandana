@@ -1,27 +1,27 @@
 require 'spec_helper'
 
 describe City do
-  let(:brooklyn) { FactoryGirl.build(:brooklyn) }
+  it "has a valid factory" do
+    expect(FactoryGirl.build(:city)).to be_valid
+  end
 
-  describe "attributes" do
-    it "has a name" do
-      expect(brooklyn.name).to_not be_nil
-    end
+  it "is invalid without a name" do
+    expect(FactoryGirl.build(:city, name: nil)).to_not be_valid
   end
 
   describe "associations" do
+    let(:city) { FactoryGirl.build(:city) }
+
     it "has bands" do
-      bloat = FactoryGirl.build(:bloat)
-      brooklyn.bands << bloat
-      #brooklyn.save
-      expect(brooklyn.bands).to include(bloat)
+      band = FactoryGirl.build(:band)
+      city.bands << band
+      expect(city.bands).to include(band)
     end
 
     it "has musicians" do
-      flea = FactoryGirl.build(:flea)
-      brooklyn.musicians << flea
-      #brooklyn.save
-      expect(brooklyn.musicians).to include(flea)
+      musician = FactoryGirl.build(:musician)
+      city.musicians << musician
+      expect(city.musicians).to include(musician)
     end
   end
 

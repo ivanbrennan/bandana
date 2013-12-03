@@ -1,9 +1,5 @@
 FactoryGirl.define do
-  factory :brooklyn, class: City do
-    name "Brooklyn"
-  end
-
-  factory :queens, class: City do
-    name "Queens"
+  factory :city do |f|
+    f.name { Faker::Name.last_name }
   end
 end

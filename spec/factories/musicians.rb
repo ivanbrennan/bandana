@@ -1,9 +1,5 @@
 FactoryGirl.define do
-  factory :axel, class: Musician do
-    name "Axel"
-  end
-
-  factory :flea, class: Musician do
-    name "Flea"
+  factory :musician do |f|
+    f.name { Faker::Name.first_name }
   end
 end

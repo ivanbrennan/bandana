@@ -1,8 +1,6 @@
 FactoryGirl.define do
-  factory :inhaler, class: Demo do
-    name "inhaler"
-  end
-  factory :protons, class: Demo do
-    name "protons"
+  factory :demo do |f|
+    f.name { Faker::Name.last_name }
+    f.band { FactoryGirl.build(:band) }
   end
 end
