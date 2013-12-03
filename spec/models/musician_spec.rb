@@ -1,49 +1,44 @@
 require 'spec_helper'
 
 describe Musician do
-  let(:axel) { FactoryGirl.build(:axel) }
+  let(:musician) { FactoryGirl.build(:musician) }
 
-  describe "attributes" do
-    it "has a name" do
-      expect(axel.name).to_not be_nil
-    end
+  it "has a valid factory" do
+    expect(musician).to be_valid
   end
 
   describe "associations" do
     it "has bands" do
-      bloat = FactoryGirl.build(:bloat)
-      axel.band_musicians.build(:band => bloat)
-      #axel.save
-      expect(axel.bands).to include(bloat)
+      band = FactoryGirl.build(:band)
+      musician.band_musicians.build(:band => band)
+      expect(musician.bands).to include(band)
     end
 
     it "belongs to a city" do
-      queens = FactoryGirl.build(:queens)
-      axel.city = queens
-      expect(axel.city).to_not be_nil
+      city = FactoryGirl.build(:city)
+      musician.city = city
+      expect(musician.city).to_not be_nil
     end
 
     it "has genres" do
-      rock = FactoryGirl.build(:rock)
-      axel.musician_genres.build(:genre => rock)
-      #axel.save
-      expect(axel.genres).to include(rock)
+      genre = FactoryGirl.build(:genre)
+      musician.musician_genres.build(:genre => genre)
+      expect(musician.genres).to include(genre)
     end
 
     it "has instruments" do
-      sax = FactoryGirl.build(:sax)
-      axel.musician_instruments.build(:instrument => sax)
-      #axel.save
-      expect(axel.instruments).to include(sax)
+      instrument = FactoryGirl.build(:instrument)
+      musician.musician_instruments.build(:instrument => instrument)
+      expect(musician.instruments).to include(instrument)
     end
 
     it "has demos from all associated bands" do
-      inhaler = FactoryGirl.build(:inhaler)
-      asthmatica = FactoryGirl.build(:asthmatica)
-      asthmatica.demos << inhaler
-      asthmatica.band_musicians.build(:musician => axel)
-      asthmatica.save
-      expect(axel.demos).to include(inhaler)
+      demo = FactoryGirl.build(:demo)
+      band = FactoryGirl.build(:band)
+      band.demos << demo
+      band.band_musicians.build(:musician => musician)
+      band.save
+      expect(musician.demos).to include(demo)
     end
   end
 

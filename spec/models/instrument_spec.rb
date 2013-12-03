@@ -1,28 +1,24 @@
 require 'spec_helper'
 
 describe Instrument do
-  let(:sax)  { FactoryGirl.build(:sax) }
-
-  describe "attributes" do
-    it "has a name" do
-      expect(sax.name).to_not be_nil
-    end
+  it "has a valid factory" do
+    expect(FactoryGirl.build(:instrument)).to be_valid
   end
 
   describe "associations" do
+    let(:instrument)  { FactoryGirl.build(:instrument) }
 
     it "has bands" do
-      asthmatica = FactoryGirl.build(:asthmatica)
-      sax.band_instruments.build(:band => asthmatica)
-      #sax.save
-      expect(sax.bands).to include(asthmatica)
+      band = FactoryGirl.build(:band)
+      instrument.band_instruments.build(:band => band)
+      expect(instrument.bands).to include(band)
     end
 
     it "has musicians" do
-      axel = FactoryGirl.create(:axel)
-      sax.musician_instruments.build(:musician => axel)
-      sax.save
-      expect(sax.musicians).to include(axel)
+      musician = FactoryGirl.create(:musician)
+      instrument.musician_instruments.build(:musician => musician)
+      instrument.save
+      expect(instrument.musicians).to include(musician)
     end
   end
 
